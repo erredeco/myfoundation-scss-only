@@ -43,8 +43,7 @@ $tabs-vertical-navigation-margin-bottom: 1.25rem !default;
         margin-bottom: 0 !important;
         list-style: none;
         float: $default-float;
-        > a {
-					outline: none;        
+        > a {    
           display: block;
           background: {
             color: $tabs-navigation-bg-color;
@@ -64,6 +63,9 @@ $tabs-vertical-navigation-margin-bottom: 1.25rem !default;
             background: {
               color: $tabs-navigation-hover-bg-color;
             }
+          }
+          &:focus{
+              outline: none;
           }
         }
         &.active a {
