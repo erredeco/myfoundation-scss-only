@@ -66,12 +66,12 @@
 
 //RDC: express $base-font-size in px instead of % OLD: $base-font-size: 100%;
 //RDC: I remove the comment before this to ensure that this rewrites the compass variable with the same name!!!
-// $base-font-size:16px;
+$base-font-size:16px;
 
 // The $base-font-size is 100% while $base-line-height is 150%
 //RDC: $base-line-height:1.5 anzichè 150% (unitless)
 //RDC: I remove the comment before this to ensure that this rewrites the compass variable with the same name!!!
-// $base-line-height: 1.5;
+$base-line-height: 1.5;
 
 // We use this to control whether or not CSS classes come through in the gem files.
 $include-html-classes: true;
