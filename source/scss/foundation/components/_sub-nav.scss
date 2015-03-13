@@ -2,7 +2,7 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
-@import "global";
+@import 'global';
 
 //
 // @name _sub-nav.scss
@@ -59,10 +59,10 @@ $sub-nav-item-divider-margin: rem-calc(12) !default;
   $active-bg: $sub-nav-active-bg,
   $active-bg-hover: $sub-nav-active-bg-hover) {
   display: block;
-  width: auto;
+  margin: $sub-nav-list-margin;
   overflow: hidden;
-  margin-bottom: $sub-nav-list-margin;
   padding-top: $sub-nav-list-padding-top;
+  width: auto;
 
   dt {
     text-transform: uppercase;
@@ -71,28 +71,32 @@ $sub-nav-item-divider-margin: rem-calc(12) !default;
   dt,
   dd,
   li {
+    color: $font-color;
     float: $default-float;
-    margin-#{$default-float}: rem-calc(16);
-    margin-bottom: 0;
+    
     //RDC aggiungo l'if per eliminare la dichiarazione se inutile
     @if $sub-nav-font-family != $body-font-family {
       font-family: $sub-nav-font-family;
     }
-    //RDC aggiungo l'if per eliminare la dichiarazione se inutile
-    @if $sub-nav-font-weight != normal {
-      font-weight: $sub-nav-font-weight;
-
-    }
+    
     //RDC aggiungo l'if per eliminare la dichiarazione se inutile
     @if $font-size != rem-calc($base-font-size) {
       font-size: $font-size; 
-    }
-    color: $font-color;
+    }    
+    
+    //RDC aggiungo l'if per eliminare la dichiarazione se inutile
+    @if $sub-nav-font-weight != normal {
+      font-weight: $sub-nav-font-weight;
+    }        
+    
+    margin-#{$default-float}: rem-calc(16);
+    margin-bottom: 0;
 
-    a {
-      text-decoration: $sub-nav-text-decoration;
+    a {      
       color: $sub-nav-font-color;
-			padding: $sub-nav-padding; 
+			padding: $sub-nav-padding;
+      text-decoration: $sub-nav-text-decoration; 
+      
       &:hover {
         color: $sub-nav-font-color-hover;
       }
@@ -100,21 +104,25 @@ $sub-nav-item-divider-margin: rem-calc(12) !default;
 
     &.active a {
       @include radius($sub-nav-border-radius);
+      background: $active-bg;
+      color: $sub-nav-active-color;
+      cursor: $sub-nav-active-cursor;
+            
       //RDC aggiungo l'if per eliminare la dichiarazione se inutile
       @if $sub-nav-active-font-weight != $sub-nav-font-weight {
         font-weight: $sub-nav-active-font-weight;  
       }
-      background: $active-bg;
+      
       //RDC aggiungo l'if per eliminare la dichiarazione se inutile
       @if  $sub-nav-active-padding != $sub-nav-padding {
       	padding: $sub-nav-active-padding;			
 			}     
-			cursor: $sub-nav-active-cursor;
-      color: $sub-nav-active-color;
+			      
       &:hover {
         background: $active-bg-hover;
       }
     }
+    
     @if $sub-nav-item-divider != "" {
       margin-#{$default-float}: 0;
 

@@ -3,14 +3,13 @@
 // Licensed under MIT Open Source
 // toolbar styles
 
-@import "global";
+@import 'global';
 
 .toolbar {
 	background: $oil;
-	width: 100%;
-	font-size: 0;
 	display: inline-block;
-
+  font-size: 0;
+  width: 100%;
 	&.label-bottom .tab .tab-content {
 		i, img { margin-bottom: 10px; }
 	}
@@ -29,20 +28,19 @@
 		width: auto;
 
 		.tab {
-			width: auto;
-			margin: auto;
 			float: none;
+     	margin: auto; 
+      width: auto;	
 		}
 	}
 	
 	.tab {
-		text-align: center;
-		width: 25%;
-		margin: 0 auto;
-		display: block;
-		padding: 20px;
+		display: block;		
 		float: left;
-
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    width: 25%;
 		&:hover {
 			background: rgba($white, 0.1);
 		}
@@ -56,17 +54,17 @@
 	label { color: $iron; }
 
 	i {
-		font-size: 30px;
-		display: block;
-		margin: 0 auto;
 		color: $iron;
+    display: block;
+    font-size: 30px;
+		margin: 0 auto;	
 		vertical-align: middle;
 	}
 
 	img {
-		width: 30px;
-		height: 30px;
 		display: block;
+    height: 30px;
 		margin: 0 auto;
+    width: 30px;
 	}
 }

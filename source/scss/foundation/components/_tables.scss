@@ -2,7 +2,7 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
-@import "global";
+@import 'global';
 
 //
 // @name _tables.scss
@@ -67,8 +67,8 @@ $table-margin-bottom: rem-calc(20) !default;
 
 @mixin table {
   background: $table-bg;
-  margin-bottom: $table-margin-bottom;
   border: $table-border-style $table-border-size $table-border-color;
+  margin-bottom: $table-margin-bottom;  
 	table-layout: $table-layout;  
 
   caption {
@@ -86,10 +86,10 @@ $table-margin-bottom: rem-calc(20) !default;
   //RDC...penso che il tr sia inutile  tr {
       th,
       td {
-        //RDC aggiungo l'if per eliminare la dichiarazione se inutile
-        @if $table-head-padding != $table-row-padding {
-          padding: $table-head-padding;
-        }
+        //RDC aggiungo l'if per eliminare la dichiarazione se inutile        
+        @if $table-head-font-color != $body-font-color {
+          color: $table-head-font-color;
+        }        
         //RDC aggiungo l'if per eliminare la dichiarazione se inutile
         @if $table-head-font-size != $table-row-font-size {
           font-size: $table-head-font-size;  
@@ -98,10 +98,10 @@ $table-margin-bottom: rem-calc(20) !default;
         @if $table-head-font-weight != normal {
           font-weight: $table-head-font-weight;
         }
-        //RDC aggiungo l'if per eliminare la dichiarazione se inutile        
-        @if $table-head-font-color != $body-font-color {
-          color: $table-head-font-color;
-        }
+        //RDC aggiungo l'if per eliminare la dichiarazione se inutile
+        @if $table-head-padding != $table-row-padding {
+          padding: $table-head-padding;
+        }      
       }
   //RDC...penso il tr sia inutile (chiusura)  }
   }
@@ -112,10 +112,10 @@ $table-margin-bottom: rem-calc(20) !default;
   //RDC...penso che il tr sia inutile  tr {
       th,
       td {
-				//RDC aggiungo l'if per eliminare la dichiarazione se inutile      
-        @if $table-foot-padding != $table-row-padding {      
-        	padding: $table-foot-padding;
-        }
+        //RDC aggiungo l'if per eliminare la dichiarazione se inutile        
+        @if $table-foot-font-color != $body-font-color {        
+        	color: $table-foot-font-color;
+        }				
         //RDC aggiungo l'if per eliminare la dichiarazione se inutile 
         @if $table-foot-font-size != $table-row-font-size {
         	font-size: $table-foot-font-size;
@@ -123,10 +123,11 @@ $table-margin-bottom: rem-calc(20) !default;
         //RDC aggiungo l'if per eliminare la dichiarazione se inutile
         @if $table-foot-font-weight != normal {        
         	font-weight: $table-foot-font-weight;
-        }
-        //RDC aggiungo l'if per eliminare la dichiarazione se inutile        
-        @if $table-foot-font-color != $body-font-color {        
-        	color: $table-foot-font-color;
+        }        
+        
+        //RDC aggiungo l'if per eliminare la dichiarazione se inutile      
+        @if $table-foot-padding != $table-row-padding {      
+        	padding: $table-foot-padding;
         }	
       }
   //RDC...penso il tr sia inutile (chiusura)  }
@@ -137,13 +138,13 @@ $table-margin-bottom: rem-calc(20) !default;
   //RDC: lo sposto sotto tr {
     th,
     td {
-      padding: $table-row-padding;
-      font-size: $table-row-font-size;
       //RDC aggiungo l'if per eliminare la dichiarazione se inutile        
       @if $table-head-font-color != $body-font-color {
         color: $table-row-font-color;
-        text-align: $default-float;
-      }     
+      }             
+      font-size: $table-row-font-size;
+      padding: $table-row-padding;
+      text-align: $default-float;           
     }
   //RDC: ho spostato qui il tr
   tr {

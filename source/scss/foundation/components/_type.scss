@@ -2,7 +2,7 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
-@import "global";
+@import 'global';
 
 $include-html-type-classes: $include-html-classes !default;
 
@@ -232,11 +232,11 @@ $align-class-breakpoints:
     // Default Link Styles
     a {
       color: $anchor-font-color;
+      line-height: inherit;
       //RDC: lo escludo se è underscore
       @if $anchor-text-decoration != underscore {
         text-decoration: $anchor-text-decoration;
       }
-      line-height: inherit;
 
       &:hover,
       &:focus {
@@ -256,14 +256,12 @@ $align-class-breakpoints:
       @if $paragraph-font-family != inherit {
         font-family: $paragraph-font-family;
       }
-      @if $paragraph-font-weight != normal {
-        font-weight: $paragraph-font-weight;
-      } 
-      
       @if $paragraph-font-size != rem-calc($base-font-size) {      
       	font-size: $paragraph-font-size;
-			}
-			      
+			}            
+      @if $paragraph-font-weight != normal {
+        font-weight: $paragraph-font-weight;
+      } 		      
       @if $paragraph-line-height != $base-line-height {
         line-height: $paragraph-line-height;
       }
@@ -284,28 +282,28 @@ $align-class-breakpoints:
     // Default header styles
     //RDC: utilizzo degli @if per escludere quelli che dovrebbero essere stili di default!
     h1, h2, h3, h4, h5, h6 {
-
-      @if $header-font-family != $body-font-family {
-        font-family: $header-font-family;
-      }
-      font-weight: $header-font-weight;
-      @if $header-font-style != normal {
-        font-style: $header-font-style;
-      }
       @if $header-font-color != $body-font-color {
         color: $header-font-color;
       }
-      text-rendering: $header-text-rendering;
+      @if $header-font-family != $body-font-family {
+        font-family: $header-font-family;
+      }
+      @if $header-font-style != normal {
+        font-style: $header-font-style;
+      }      
+      font-weight: $header-font-weight;
+      @if $header-line-height != $base-line-height {
+        line-height: $header-line-height;
+      }
       //RDC: riscrivo con una short
       //margin-top: $header-top-margin;
       //margin-bottom: $header-bottom-margin;
       margin: $header-top-margin 0 $header-bottom-margin 0;
-      @if $header-line-height != $base-line-height {
-        line-height: $header-line-height;
-      }
+      text-rendering: $header-text-rendering;
+
       small {
-        font-size: $small-font-size;
         color: $small-font-color;
+        font-size: $small-font-size;
         line-height: 0;
       }
     }
@@ -323,8 +321,8 @@ $align-class-breakpoints:
       border: $hr-border-style $hr-border-color;
       border-width: $hr-border-width 0 0;
       clear: both;
-      margin: $hr-margin 0 ($hr-margin - rem-calc($hr-border-width));
       height: 0;
+      margin: $hr-margin 0 ($hr-margin - rem-calc($hr-border-width));
     }
 
     // Helpful Typography Defaults
@@ -347,20 +345,19 @@ $align-class-breakpoints:
     }
 
     code {
+      background-color: $code-background-color;      
+      border-color: $code-border-color;
+      border-style: $code-border-style; 
+      border-width: $code-border-size;
+      //RDC: solo se ncessario
+			@if $code-color != $body-font-color {
+				color: $code-color;
+			}
       font-family: $code-font-family;
       //RDC: solo se ncessario
       @if $code-font-weight != normal {      
       	font-weight: $code-font-weight;
       } 
-      //RDC: solo se ncessario
-			@if $code-color != $body-font-color {
-				color: $code-color;
-			}
-      background-color: $code-background-color;      
-      border-width: $code-border-size;
-      border-style: $code-border-style;
-      border-color: $code-border-color;
-      
       //RDC: solo se ncessario
       @if $code-padding != 0 {
 				padding: $code-padding;	
@@ -377,22 +374,21 @@ $align-class-breakpoints:
       
       //RDC: aggiungo $list-font-family, $list-font-size, $list-line-height se necessario
       // Nota che le questi confronti non vengono fatti sulle definizioni delle variabili, ma con le stesse di $paragraph-qualcosa
-      @if $list-font-size != rem-calc($base-font-size) {
-        font-size: $list-font-size;
-      }
+
       @if $list-font-family != inherit {
         font-family: $list-font-family;
       }
+      @if $list-font-size != rem-calc($base-font-size) {
+        font-size: $list-font-size;
+      }
+
       @if $list-line-height != $base-line-height {
         line-height: $list-line-height;
       }
-      
+      list-style-position: $list-style-position;
       //RDC: riscrivo margin con una short
-
       //RDC: old: margin-bottom: $list-margin-bottom;
       margin: 0 0 $list-margin-bottom 0;
-      list-style-position: $list-style-position;
-
       //RDC: aggiungo
       padding:0;    
     }
@@ -450,19 +446,21 @@ $align-class-breakpoints:
 
         @if $text-direction == ltr {
           &:before {
+            color: lighten($body-font-color,23%);
             content: counters(gerarchia,"."); 
             counter-increment: gerarchia; 
             font-size: 90%;
             padding-right: 6px; 
-            color: lighten($body-font-color,23%) 
+             
           } 
         } @else {
           &:after {
+            color: lighten($body-font-color,23%); 
             content: counters(gerarchia,"."); 
             counter-increment: gerarchia; 
             font-size: 90%;
             padding-left: 6px; 
-            color: lighten($body-font-color,23%) 
+            
           } 
         }
       }
@@ -470,10 +468,10 @@ $align-class-breakpoints:
     //RDC: aggiungo questi
     nav ul,
     nav ol {
-      padding: 0;
-      margin: 0;
       list-style: none;
       list-style-image: none;
+      margin: 0;
+      padding: 0;
     }
 
     // Definition Lists
@@ -496,10 +494,10 @@ $align-class-breakpoints:
       .dl-horizontal {
         @include clearfix;
         dt {
-          float: #{$default-float};
           clear: #{$default-float};
-          width: 8rem;
+          float: #{$default-float};
           text-align: #{$opposite-direction};
+          width: 8rem;
           @include text-overflow; 
         }
         dd {

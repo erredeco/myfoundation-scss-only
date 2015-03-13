@@ -2,7 +2,7 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
-@import "global";
+@import 'global';
 
 //
 // @variables
@@ -66,8 +66,8 @@ $price-cta-padding: rem-calc(20 20 0) !default;
   margin-#{$default-float}: 0;
   margin-bottom: $price-table-margin-bottom;
 //RDC: perchè utilizzare * se il figlio è sempre un <li> secondo le specifiche?
-//RDC: coomento & * {
-  &>li {
+//RDC: commento & * {
+  >li {
     list-style: none;
     line-height: 1;
   }
@@ -77,21 +77,25 @@ $price-cta-padding: rem-calc(20 20 0) !default;
 // We use this mixin to create the pricing table title styles
 @mixin pricing-table-title {
   background-color: $price-title-bg;
-  padding: $price-title-padding;
-  text-align: $price-title-align;
   color: $price-title-color;
+
   //RDC aggiungo l'if per eliminare la dichiarazione se inutile
-  @if $price-title-weight != normal {
-    font-weight: $price-title-weight;
-  }
+  @if $price-title-font-family != $body-font-family {
+    font-family: $price-title-font-family;
+  }  
+
   //RDC aggiungo l'if per eliminare la dichiarazione se inutile
   @if $price-title-size != rem-calc($base-font-size) {
     font-size: $price-title-size;
   }
+
   //RDC aggiungo l'if per eliminare la dichiarazione se inutile
-  @if $price-title-font-family != $body-font-family {
-    font-family: $price-title-font-family;
+  @if $price-title-weight != normal {
+    font-weight: $price-title-weight;
   }
+  
+  padding: $price-title-padding;
+  text-align: $price-title-align;
 }
 
 // @mixins
@@ -99,17 +103,21 @@ $price-cta-padding: rem-calc(20 20 0) !default;
 // We use this mixin to control the pricing table price styles
 @mixin pricing-table-price {
   background-color: $price-money-bg;
-  padding: $price-money-padding;
-  text-align: $price-money-align;
   color: $price-money-color;
+  
+  @if $price-money-font-family != $body-font-family {
+    font-family: $price-money-font-family;
+  }
+
+  font-size: $price-money-size;
+
   //RDC aggiungo l'if per eliminare la dichiarazione se inutile
   @if $price-money-weight != normal {
     font-weight: $price-money-weight;
   }
-  font-size: $price-money-size;
-  @if $price-money-font-family != $body-font-family {
-    font-family: $price-money-font-family;
-  }
+  
+  padding: $price-money-padding;
+  text-align: $price-money-align;
 }
 
 // @mixins
@@ -117,16 +125,18 @@ $price-cta-padding: rem-calc(20 20 0) !default;
 // We use this mixin to create the description styles for the pricing table
 @mixin pricing-table-description {
   background-color: $price-bg;
-  padding: $price-desc-padding;
-  text-align: $price-desc-align;
+  border-bottom: $price-desc-bottom-border;  
   color: $price-desc-color;
+  
   font-size: $price-desc-font-size;
   //RDC aggiungo l'if per eliminare la dichiarazione se inutile
   @if $price-desc-weight != normal {
     font-weight: $price-desc-weight;
   }
+  
   line-height: $price-desc-line-height;
-  border-bottom: $price-desc-bottom-border;
+  padding: $price-desc-padding;
+  text-align: $price-desc-align;
 }
 
 // @mixins
@@ -134,8 +144,7 @@ $price-cta-padding: rem-calc(20 20 0) !default;
 // We use this mixin to style the bullet items in the pricing table
 @mixin pricing-table-bullet {
   background-color: $price-bg;
-  padding: $price-item-padding;
-  text-align: $price-item-align;
+  border-bottom: $price-item-bottom-border;   
   color: $price-item-color;
   font-size: $price-item-font-size;
   
@@ -143,7 +152,9 @@ $price-cta-padding: rem-calc(20 20 0) !default;
   @if $price-item-weight != normal {
     font-weight: $price-item-weight;
   }
-  border-bottom: $price-item-bottom-border;
+  
+  padding: $price-item-padding;
+  text-align: $price-item-align;  
 }
 
 // @mixins
@@ -151,8 +162,8 @@ $price-cta-padding: rem-calc(20 20 0) !default;
 // We use this mixin to style the CTA area of the pricing tables
 @mixin pricing-table-cta {
   background-color: $price-cta-bg;
-  text-align: $price-cta-align;
   padding: $price-cta-padding;
+  text-align: $price-cta-align;  
 }
 
 @include exports("pricing-table") {

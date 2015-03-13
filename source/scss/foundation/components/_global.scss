@@ -2,7 +2,7 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
-@import "../functions";
+@import '../functions';
 //
 // Foundation Variables
 //
@@ -84,7 +84,7 @@ $selection-text-background: #b3d4fc !default;
 // We use this to add box-sizing across browser prefixes
 @mixin box-sizing($type:border-box) {
   -webkit-box-sizing: $type; // Android < 2.3, iOS < 4
-	   -moz-box-sizing: $type; // Firefox < 29
+	   -moz-box-sizing: $type;
 	        box-sizing: $type; // Chrome, IE 8+, Opera, Safari 5.1
 }
 
@@ -95,11 +95,11 @@ $selection-text-background: #b3d4fc !default;
 // $triangle-color - Used to set border-color which makes up triangle. No default
 // $triangle-direction - Used to determine which direction triangle points. Options: top, bottom, left, right
 @mixin css-triangle($triangle-size, $triangle-color, $triangle-direction) {
+  border: inset $triangle-size;
   content: "";
   display: block;
-  width: 0;
   height: 0;
-  border: inset $triangle-size;
+  width: 0; 
   @if ($triangle-direction == top) {
     border-color: $triangle-color transparent transparent transparent;
     border-top-style: solid;
@@ -132,9 +132,9 @@ $selection-text-background: #b3d4fc !default;
 @mixin hamburger($width, $left, $top, $thickness, $gap, $color, $hover-color, $offcanvas) {
   span::after {
     content: "";
-    position: absolute;
     display: block;
     height: 0;
+    position: absolute;    
     
     @if $offcanvas {
     	@if $top {
@@ -152,8 +152,8 @@ $selection-text-background: #b3d4fc !default;
     	}
     }
     @else {
-      top: 50%;
       margin-top: -($width/2);
+      top: 50%;
       #{$opposite-direction}: $topbar-link-padding;
     }
     
@@ -187,8 +187,8 @@ $selection-text-background: #b3d4fc !default;
   transition: box-shadow $fade-time, border-color $fade-time ease-in-out;
 
   &:#{$selector} {
-    box-shadow: 0 0 5px $glowing-effect-color;
     border-color: $glowing-effect-color;
+    box-shadow: 0 0 5px $glowing-effect-color;   
   }
 }
 
@@ -206,11 +206,11 @@ $selection-text-background: #b3d4fc !default;
 // Makes an element visually hidden, but accessible.
 // @see http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
 @mixin element-invisible {
-  position: absolute !important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute !important;
+  width: 1px;
 }
 
 // @mixins
@@ -313,10 +313,10 @@ $column-gutter: rem-calc(30) !default;
 
 // Media Query Ranges
 $small-range: (0, 40em) !default;
-$medium-range: (40.063em, 64em) !default;
-$large-range: (64.063em, 90em) !default;
-$xlarge-range: (90.063em, 120em) !default;
-$xxlarge-range: (120.063em, 99999999em) !default;
+$medium-range: (40.0625em, 64em) !default;
+$large-range: (64.0625em, 90em) !default;
+$xlarge-range: (90.0625em, 120em) !default;
+$xxlarge-range: (120.0625em, 99999999em) !default;
 
 
 $screen: "only screen" !default;
@@ -420,10 +420,13 @@ $cursor-text-value: text !default;
   html, body { height: 100%; }  
 
     // Set box-sizing globally to handle padding and border widths
+    html {
+      box-sizing: border-box;
+    }    
     *,
     *:before,
     *:after {
-      @include box-sizing(border-box);
+      @include box-sizing(inherit);
     }
 
 
@@ -436,34 +439,32 @@ $cursor-text-value: text !default;
     body {
 			background: $body-bg;
       color: $body-font-color;
-      padding: 0;
-      //RDC: already included in normalize.css
-      //margin: 0;
-       
-    //RDC: rewrite of html basic font size
-      font-size: convert-to-percent($base-font-size);			
-      font-family: $body-font-family;
-    //RDC Add these only if they are different from 'normal'!   
-      @if $body-font-weight != normal {
-        font-weight: $body-font-weight;
-      }       
-      @if $body-font-style != normal {
-        font-style: $body-font-style; 
-      }
-			// Set to $base-line-height to take on browser default of 150%      
-      line-height: $base-line-height;
-      position: relative;
-
       //RDC: Add this only if it is different from 'default'! (maybe the if could be omitted)
       @if  $cursor-auto-value != default{
          cursor: $cursor-auto-value; 
+      }      
+      font-family: $body-font-family;
+      //RDC: rewrite of html basic font size
+      font-size: convert-to-percent($base-font-size);	      
+      
+      //RDC Add these only if they are different from 'normal'!   
+      @if $body-font-style != normal {
+        font-style: $body-font-style; 
       }
+      @if $body-font-weight != normal {
+        font-weight: $body-font-weight;
+      }       			     
+      line-height: $base-line-height; // Set to $base-line-height to take on browser default of 150% 
+      //RDC: already included in normalize.css
+      //margin: 0;
+      padding: 0;
+      position: relative;
     }
 
   a:hover { cursor: $cursor-pointer-value; }
 
 
-  // Remove text-shadow in selection highlight: h5bp.com/i
+  // RDC: Remove text-shadow in selection highlight: h5bp.com/i
   // These selection declarations have to be separate
   ::-moz-selection { 
     background:$selection-text-background;
@@ -478,16 +479,13 @@ $cursor-text-value: text !default;
 
 
     // Grid Defaults to get images and embeds to work properly
-    img,
-    object,
-    embed { max-width: 100%; height: auto; }
+    img { max-width: 100%; height: auto; }
 
-    object,
-    embed { height: 100%; }
     img { -ms-interpolation-mode: bicubic; }
 
     #map_canvas,
-    .map_canvas {
+    .map_canvas,
+    .mqa-display  {
       img,
       embed,
       object { max-width: none !important;
