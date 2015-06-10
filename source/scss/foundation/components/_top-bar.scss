@@ -92,14 +92,14 @@ $topbar-dropdown-arrows: true !default; //Set false to remove the \00bb >> text 
 
 // Accessibility mixins for hiding and showing the menu dropdown items
 @mixin topbar-hide-dropdown {
-  // Makes an element visually hidden by default, but visible when focused.
-  display: block;
+  // Makes an element visually hidden by default, but visible when focused.  
   @include element-invisible();
+  display: block;
 }
 
 @mixin topbar-show-dropdown {
-  display: block;
   @include element-invisible-off();
+  display: block;
   position: absolute !important; // Reset the position from static to absolute
 }
 
@@ -521,6 +521,12 @@ $topbar-dropdown-arrows: true !default; //Set false to remove the \00bb >> text 
           top: (($topbar-height - $topbar-input-height) / 2);
         }
 
+        .has-form > .button,
+        .has-form > button { 
+          padding-top: rem-calc(5);
+          top: (($topbar-height - $topbar-input-height + rem-calc(-3)) / 2); 
+        }        
+
         &.expanded { 
           background: $topbar-bg; 
           }
@@ -621,9 +627,7 @@ $topbar-dropdown-arrows: true !default; //Set false to remove the \00bb >> text 
                   border: none;
                   content: "\00bb";
                   top: rem-calc(3);
-                 //OLD line-height: 1.2;
-                 //OLD margin-top: -1px;
-                 //OLD top: 1rem;
+                  
                   #{$opposite-direction}: 5px;
                 }
               }
