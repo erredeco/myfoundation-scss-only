@@ -28,6 +28,7 @@ $tabbar-header-margin: 0 !default;
 
 // Off Canvas Menu Variables
 $off-canvas-width: rem-calc(250) !default;
+$off-canvas-height: rem-calc(300) !default;
 $off-canvas-bg: $oil !default;
 $off-canvas-bg-hover: scale-color($tabbar-bg, $lightness: -30%) !default;
 $off-canvas-bg-active: scale-color($tabbar-bg, $lightness: -30%) !default;
@@ -94,8 +95,7 @@ $menu-slide: "transform 500ms ease" !default;
 @mixin translate3d($tx,$ty,$tz) {
   -webkit-transform: translate3d($tx,$ty,$tz);
      -moz-transform: translate3d($tx,$ty,$tz);
-      -ms-transform: translate($tx,$ty);     
-      -ms-transform: translate3d($tx,$ty,$tz);
+      -ms-transform: translate($tx,$ty);
        -o-transform: translate3d($tx,$ty,$tz);
           transform: translate3d($tx,$ty,$tz)
 }
@@ -112,7 +112,6 @@ $menu-slide: "transform 500ms ease" !default;
   overflow-x: hidden;
   overflow-y: auto;
   position: absolute;
-  top: 0;
   transition: transform 500ms ease 0s;
   width: $off-canvas-width;
   z-index: 1001;
@@ -120,21 +119,37 @@ $menu-slide: "transform 500ms ease" !default;
   @if $position == left {
     @include translate3d(-100%,0,0);
     left: 0;
+    top: 0;
   }
   @if $position == right {
     @include translate3d(100%,0,0);
     right: 0;
+    top: 0;
+  }
+  @if $position == top {
+    @include translate3d(0,-100%,0);
+    top: 0;
+    width: 100%;
+    height: $off-canvas-height;
+  }
+  @if $position == bottom {
+    @include translate3d(0,100%,0);
+    bottom: 0;
+    width: 100%;
+    height: $off-canvas-height;
   }
 }
 
 // OFF CANVAS WRAP
 // Wrap visible content and prevent scroll bars
 @mixin off-canvas-wrap {
-    @include kill-flicker;
-    @include wrap-base;
+  @include kill-flicker;
+  @include wrap-base;
   overflow: hidden;
-		  &.move-right,
-  &.move-left { min-height: 100%; -webkit-overflow-scrolling: touch; }
+  &.move-right,
+  &.move-left,
+  &.move-bottom,
+  &.move-top { min-height: 100%; -webkit-overflow-scrolling: touch; }
 }
 
 // INNER WRAP
@@ -304,6 +319,7 @@ $menu-slide: "transform 500ms ease" !default;
   position: absolute;
   top: 0;
   width: $off-canvas-width;
+  height: $off-canvas-height;
   z-index: 1002;
   @if $position == left {
     @include translate3d(-100%,0,0);
@@ -312,6 +328,16 @@ $menu-slide: "transform 500ms ease" !default;
   @if $position == right {
     @include translate3d(100%,0,0);
     right: 0;
+  }
+  @if $position == top {
+    @include translate3d(0,-100%,0);
+    top: 0;
+    width: 100%;
+  }  
+  @if $position == bottom {
+    @include translate3d(0,100%,0);
+    bottom: 0;
+    width: 100%;
   }
   -webkit-transition: -webkit-#{$menu-slide};
   -moz-transition: -moz-#{$menu-slide};
@@ -425,6 +451,8 @@ $menu-slide: "transform 500ms ease" !default;
 
     .left-off-canvas-menu { @include off-canvas-menu($position: left); }
     .right-off-canvas-menu { @include off-canvas-menu($position: right); }
+    .top-off-canvas-menu { @include off-canvas-menu($position: top); }
+    .bottom-off-canvas-menu { @include off-canvas-menu($position: bottom); }
 
     ul.off-canvas-list { @include off-canvas-list; }
 
@@ -445,8 +473,23 @@ $menu-slide: "transform 500ms ease" !default;
       }
       .exit-off-canvas { @include back-link; }
     }
+    .move-top {
+      > .inner-wrap {
+        @include translate3d(0,-($off-canvas-height),0);
+
+      }
+      .exit-off-canvas { @include back-link; }
+    }
+    .move-bottom {
+      > .inner-wrap {
+        @include translate3d(0,($off-canvas-height),0);
+
+      }
+      .exit-off-canvas { @include back-link; }
+    }
     .offcanvas-overlap {
-      .left-off-canvas-menu, .right-off-canvas-menu {
+      .left-off-canvas-menu, .right-off-canvas-menu,
+      .top-off-canvas-menu, .bottom-off-canvas-menu {
         -ms-transform: none;
         -webkit-transform: none;
         -moz-transform: none;
@@ -478,14 +521,42 @@ $menu-slide: "transform 500ms ease" !default;
       }
       .exit-off-canvas { @include back-link; }
     }
+    .offcanvas-overlap-top {
+      .bottom-off-canvas-menu {
+        -ms-transform: none;
+        -webkit-transform: none;
+        -moz-transform: none;
+        -o-transform: none;
+        transform: none;
+        z-index: 1003;
+      }
+      .exit-off-canvas { @include back-link; }
+    }
+    .offcanvas-overlap-bottom {
+      .top-off-canvas-menu {
+        -ms-transform: none;
+        -webkit-transform: none;
+        -moz-transform: none;
+        -o-transform: none;
+        transform: none;
+        z-index: 1003;
+      }
+      .exit-off-canvas { @include back-link; }
+    }
 
     // Older browsers
     .no-csstransforms {
       .left-off-canvas-menu { left: -($off-canvas-width); }
       .right-off-canvas-menu { right: -($off-canvas-width); }
+      .top-off-canvas-menu { top: -($off-canvas-height); }
+      .bottom-off-canvas-menu { bottom: -($off-canvas-height); }
 
       .move-left > .inner-wrap { right: $off-canvas-width; }
       .move-right > .inner-wrap { left: $off-canvas-width; }
+      .move-top > .inner-wrap { right: $off-canvas-height; }
+      .move-bottom > .inner-wrap { left: $off-canvas-height; }
+
+
     }
 
     .left-submenu {
@@ -499,6 +570,20 @@ $menu-slide: "transform 500ms ease" !default;
       @include off-canvas-submenu($position: right);
       &.move-left, &.offcanvas-overlap-left, &.offcanvas-overlap {
         @include translate3d(0%,0,0);
+      }
+    }
+
+    .top-submenu {
+      @include off-canvas-submenu($position: top);
+      &.move-bottom, &.offcanvas-overlap-bottom, &.offcanvas-overlap {
+        @include translate3d(0,0%,0);
+      }
+    }
+
+    .bottom-submenu {
+      @include off-canvas-submenu($position: bottom);
+      &.move-top, &.offcanvas-overlap-top, &.offcanvas-overlap {
+        @include translate3d(0,0%,0);
       }
     }
 
