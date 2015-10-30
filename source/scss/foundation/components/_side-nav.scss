@@ -101,7 +101,7 @@ $side-nav-divider-color: scale-color($white, $lightness: -10%) !default;
     }
 
     &.active > a:first-child:not(.button) {
-      color: $side-nav-link-color-active;
+      color: $link-color-active;
 
       //RDC aggiungo l'if per eliminare la dichiarazione se inutile
       @if $side-nav-font-family-active != $side-nav-font-family {
